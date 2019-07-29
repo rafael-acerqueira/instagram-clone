@@ -8,4 +8,5 @@ export const Container = styled.View`
 export const Image = styled.Image`
 	width: ${Dimensions.get('window').width};
 	height: ${(Dimensions.get('window').width * 3) / 4};
+	margin-bottom: 15px;
 `
