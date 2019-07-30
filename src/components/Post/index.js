@@ -4,6 +4,7 @@ import { Container, Image } from './styles'
 
 import Author from '../Author'
 import Comments from '../Comments'
+import AddComment from '../AddComment'
 
 export default props => {
 	return (
@@ -11,6 +12,7 @@ export default props => {
 			<Image source={props.image} resizeMode="contain" />
 			<Author nickname="teste" email="teste@teste.com" />
 			<Comments data={props.comments} />
+			<AddComment />
 		</Container>
 	)
 }
