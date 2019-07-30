@@ -9,8 +9,10 @@ import {
 	ButtonText
 } from './styles'
 
-export default () => {
-	const logout = () => {}
+export default props => {
+	const logout = () => {
+		props.navigation.navigate('Auth')
+	}
 
 	return (
 		<Container>
