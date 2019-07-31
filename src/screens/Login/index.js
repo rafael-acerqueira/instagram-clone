@@ -6,7 +6,7 @@ export default props => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-	const login = () => {
+	const login = props => {
 		props.navigation.navigate('Profile')
 	}
 
@@ -29,7 +29,7 @@ export default props => {
 			<Button onPress={login}>
 				<ButtonText>Login</ButtonText>
 			</Button>
-			<Button onPress={() => {}}>
+			<Button onPress={() => props.navigation.navigate('Register')}>
 				<ButtonText>Criar nova conta...</ButtonText>
 			</Button>
 		</Container>
