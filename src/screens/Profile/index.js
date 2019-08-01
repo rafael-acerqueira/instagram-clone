@@ -1,4 +1,6 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Creators as UserActions } from '../../store/ducks/user'
 
 import {
 	Container,
@@ -10,15 +12,19 @@ import {
 } from './styles'
 
 export default props => {
+	const dispatch = useDispatch()
+	const { name, email } = useSelector(state => state.user)
+
 	const logout = () => {
+		dispatch(UserActions.logout())
 		props.navigation.navigate('Auth')
 	}
 
 	return (
 		<Container>
-			<Avatar options={{ email: 'teste@teste.com', secure: true }} />
-			<Nickname>Fulano</Nickname>
-			<Email>fulano@teste.com</Email>
+			<Avatar options={{ email, secure: true }} />
+			<Nickname>{name}</Nickname>
+			<Email>{email}</Email>
 			<Button onPress={logout}>
 				<ButtonText>Sair</ButtonText>
 			</Button>

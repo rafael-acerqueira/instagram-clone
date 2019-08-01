@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Creators as UserActions } from '../../store/ducks/user'
 
 import { Container, Input, Button, ButtonText } from './styles'
 
 export default props => {
 	const [email, setEmail] = useState('')
+	const [name, setName] = useState('Temporário')
 	const [password, setPassword] = useState('')
+	const dispatch = useDispatch()
 
-	const login = props => {
+	const login = () => {
+		dispatch(UserActions.login({ name, email }))
 		props.navigation.navigate('Profile')
 	}
 

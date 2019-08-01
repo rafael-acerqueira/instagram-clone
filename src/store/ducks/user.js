@@ -13,8 +13,8 @@ export default function user (state = INITIAL_STATE, action) {
 	case Types.LOGGED_IN:
 		return {
 			...state,
-			name: action.payload.name,
-			email: action.payload.email
+			name: action.payload.user.name,
+			email: action.payload.user.email
 		}
 	case Types.LOGGED_OUT:
 		return { ...state, name: '', email: '' }
