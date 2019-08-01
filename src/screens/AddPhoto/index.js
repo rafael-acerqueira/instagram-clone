@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
-import { Alert, ScrollView } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import { ScrollView } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
+
+import { Creators as PostActions } from '../../store/ducks/post'
 
 import {
 	Container,
@@ -12,9 +15,11 @@ import {
 	Input
 } from './styles'
 
-export default () => {
+export default props => {
 	const [image, setImage] = useState()
 	const [comment, setComment] = useState('')
+	const dispatch = useDispatch()
+	const { name, email } = useSelector(state => state.user)
 
 	const pickImage = () => {
 		ImagePicker.showImagePicker(
@@ -32,7 +37,25 @@ export default () => {
 	}
 
 	const save = async () => {
-		Alert.alert('Imagem Adicionada', comment)
+		dispatch(
+			PostActions.add({
+				id: Math.random(),
+				nickname: name,
+				email,
+				image,
+				comments: [
+					{
+						nickname: name,
+						comment
+					}
+				]
+			})
+		)
+
+		setComment('')
+		setImage(null)
+
+		props.navigation.navigate('Feed')
 	}
 
 	return (
