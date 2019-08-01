@@ -13,7 +13,7 @@ export default props => {
 			<Image source={props.image} resizeMode="contain" />
 			<Author nickname={props.nickname} email={props.email} />
 			<Comments data={props.comments} />
-			<AddComment />
+			<AddComment postId={props.id} />
 		</View>
 	)
 }

@@ -1,13 +1,30 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { TouchableWithoutFeedback } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Container, Input, Caption } from './styles'
+import { Creators as PostActions } from '../../store/ducks/post'
 
-export default () => {
+export default props => {
 	const [comment, setComment] = useState('')
 	const [editMode, setEditMode] = useState(false)
+	const dispatch = useDispatch()
+	const { name: nickname } = useSelector(state => state.user)
 
-	const handleAddComment = () => {}
+	const handleAddComment = () => {
+		dispatch(
+			PostActions.comment(
+				{
+					nickname,
+					comment
+				},
+				props.postId
+			)
+		)
+
+		setComment('')
+		setEditMode(false)
+	}
 
 	return editMode ? (
 		<Container>
