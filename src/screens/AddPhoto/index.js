@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ScrollView } from 'react-native'
+import { ScrollView, Alert } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
 
 import { Creators as PostActions } from '../../store/ducks/post'
@@ -21,7 +21,14 @@ export default props => {
 	const dispatch = useDispatch()
 	const { name, email } = useSelector(state => state.user)
 
+	const noUser = 'Precisa estar logado para executar essa ação'
+
 	const pickImage = () => {
+		if (!name) {
+			Alert.alert('Falha', noUser)
+			return
+		}
+
 		ImagePicker.showImagePicker(
 			{
 				title: 'Escolha a imagem',
@@ -37,6 +44,16 @@ export default props => {
 	}
 
 	const save = async () => {
+		if (!name) {
+			Alert.alert('Falha', noUser)
+			return
+		}
+
+		if (!image) {
+			Alert.alert('Falha', 'É necessário selecionar uma imagem')
+			return
+		}
+
 		dispatch(
 			PostActions.add({
 				id: Math.random(),
@@ -72,6 +89,7 @@ export default props => {
 					placeholder="Algum comentário pra foto?"
 					value={comment}
 					onChangeText={comment => setComment(comment)}
+					editable={!!name}
 				/>
 				<Button onPress={save}>
 					<ButtonText>Salvar</ButtonText>
