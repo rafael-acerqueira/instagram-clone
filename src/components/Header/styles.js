@@ -1,5 +1,6 @@
 import styled from 'styled-components/native'
 import { Platform } from 'react-native'
+import { Gravatar } from 'react-native-gravatar'
 
 export const Container = styled.View`
 	margin-top: ${Platform.OS === 'ios' ? 20 : 0};
@@ -24,4 +25,19 @@ export const Title = styled.Text`
 	font-family: 'shelter';
 	height: 30px;
 	font-size: 28px;
+`
+
+export const UserContainer = styled.View`
+	flex-direction: row;
+	align-items: center;
+`
+export const UserName = styled.Text`
+	font-size: 10px;
+	color: #888;
+`
+
+export const Avatar = styled(Gravatar)`
+	width: 30px;
+	height: 30px;
+	margin-left: 10px;
 `
