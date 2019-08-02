@@ -1,6 +1,7 @@
 export const Types = {
-	ADD: 'POST:ADD',
-	COMMENT: 'POST:COMMENT'
+	ADD_SUCCESS: 'posts:ADD_SUCCESS',
+	ADD_REQUEST: 'posts:ADD_REQUEST',
+	COMMENT: 'posts:COMMENT'
 }
 
 const INITIAL_STATE = {
@@ -33,7 +34,7 @@ const INITIAL_STATE = {
 
 export default function post (state = INITIAL_STATE, action) {
 	switch (action.type) {
-	case Types.ADD:
+	case Types.ADD_SUCCESS:
 		return { ...state, data: [...state.data, action.payload.post] }
 	case Types.COMMENT:
 		return {
@@ -55,8 +56,12 @@ export default function post (state = INITIAL_STATE, action) {
 }
 
 export const Creators = {
-	add: post => ({
-		type: Types.ADD,
+	addSuccess: post => ({
+		type: Types.ADD_SUCCESS,
+		payload: { post }
+	}),
+	addRequest: post => ({
+		type: Types.ADD_REQUEST,
 		payload: { post }
 	}),
 	comment: (comment, postId) => ({

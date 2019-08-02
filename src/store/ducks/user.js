@@ -1,6 +1,6 @@
 export const Types = {
-	LOGGED_IN: 'USER:LOGGED_IN',
-	LOGGED_OUT: 'USER:LOGGED_OUT'
+	LOGGED_IN: 'users:LOGGED_IN',
+	LOGGED_OUT: 'users:LOGGED_OUT'
 }
 
 const INITIAL_STATE = {

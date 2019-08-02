@@ -8,7 +8,6 @@ import { Container } from './styles'
 
 export default () => {
 	const posts = useSelector(state => state.post.data)
-
 	return (
 		<Container>
 			<Header />

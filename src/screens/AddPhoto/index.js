@@ -55,7 +55,7 @@ export default props => {
 		}
 
 		dispatch(
-			PostActions.add({
+			PostActions.addRequest({
 				id: Math.random(),
 				nickname: name,
 				email,
