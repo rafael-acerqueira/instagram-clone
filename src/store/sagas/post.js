@@ -27,7 +27,7 @@ export function * addPost (action) {
 	}
 }
 
-export function * getPost () {
+export function * getPosts () {
 	try {
 		const posts = []
 		const { data } = yield call(api.get, '/posts.json')
@@ -39,7 +39,7 @@ export function * getPost () {
 			})
 		}
 
-		yield put(PostActions.fetchSuccess(posts))
+		yield put(PostActions.fetchSuccess(posts.reverse()))
 	} catch (error) {
 		Alert.alert(
 			'Tente Novamente!',

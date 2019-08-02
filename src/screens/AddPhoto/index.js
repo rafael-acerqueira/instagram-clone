@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ScrollView, Alert } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
@@ -20,6 +20,14 @@ export default props => {
 	const [comment, setComment] = useState('')
 	const dispatch = useDispatch()
 	const { name, email } = useSelector(state => state.user)
+	const isLoading = useSelector(state => state.post.isLoading)
+
+	useEffect(() => {
+		setComment('')
+		setImage(null)
+
+		props.navigation.navigate('Feed')
+	}, [isLoading])
 
 	const noUser = 'Precisa estar logado para executar essa ação'
 
@@ -68,11 +76,6 @@ export default props => {
 				]
 			})
 		)
-
-		setComment('')
-		setImage(null)
-
-		props.navigation.navigate('Feed')
 	}
 
 	return (
@@ -91,7 +94,7 @@ export default props => {
 					onChangeText={comment => setComment(comment)}
 					editable={!!name}
 				/>
-				<Button onPress={save}>
+				<Button onPress={save} disabled={isLoading} isLoading={isLoading}>
 					<ButtonText>Salvar</ButtonText>
 				</Button>
 			</Container>

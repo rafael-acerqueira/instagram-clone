@@ -1,4 +1,4 @@
-import styled from 'styled-components/native'
+import styled, { css } from 'styled-components/native'
 import { Dimensions, Platform } from 'react-native'
 
 export const Container = styled.View`
@@ -28,6 +28,12 @@ export const Button = styled.TouchableOpacity`
 	margin-top: 30px;
 	padding: 10px;
 	background-color: #4286f4;
+
+	${props =>
+		props.isLoading &&
+		css`
+			background-color: #aaa;
+		`}
 `
 
 export const ButtonText = styled.Text`

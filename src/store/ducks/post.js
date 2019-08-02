@@ -7,13 +7,20 @@ export const Types = {
 }
 
 const INITIAL_STATE = {
-	data: []
+	data: [],
+	isLoading: false
 }
 
 export default function post (state = INITIAL_STATE, action) {
 	switch (action.type) {
+	case Types.ADD_REQUEST:
+		return { ...state, isLoading: true }
 	case Types.ADD_SUCCESS:
-		return { ...state, data: [...state.data, action.payload.post] }
+		return {
+			...state,
+			data: [action.payload.post, ...state.data],
+			isLoading: false
+		}
 	case Types.COMMENT:
 		return {
 			...state,
@@ -28,8 +35,15 @@ export default function post (state = INITIAL_STATE, action) {
 				return post
 			})
 		}
+	case Types.FETCH_REQUEST:
+		return { ...state, isLoading: true }
 	case Types.FETCH_SUCCESS:
-		return { ...state, data: state.data.concat(action.payload.posts) }
+		return {
+			...state,
+			data: state.data.concat(action.payload.posts),
+			isLoading: false
+		}
+
 	default:
 		return state
 	}
