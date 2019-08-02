@@ -9,10 +9,9 @@ import AddComment from '../AddComment'
 
 export default props => {
 	const { name } = useSelector(state => state.user)
-
 	return (
 		<View>
-			<Image source={props.image} resizeMode="contain" />
+			<Image source={{ uri: props.image }} resizeMode="contain" />
 			<Author nickname={props.nickname} email={props.email} />
 			<Comments data={props.comments} />
 			{name ? <AddComment postId={props.id} /> : null}
