@@ -1,7 +1,8 @@
 export const Types = {
 	ADD_SUCCESS: 'posts:ADD_SUCCESS',
 	ADD_REQUEST: 'posts:ADD_REQUEST',
-	COMMENT: 'posts:COMMENT',
+	ADD_COMMENT_REQUEST: 'posts:ADD_COMMENT_REQUEST',
+	ADD_COMMENT_SUCCESS: 'posts:ADD_COMMENT_SUCCESS',
 	FETCH_REQUEST: 'posts: FETCH_REQUEST',
 	FETCH_SUCCESS: 'posts:FETCH_SUCCESS'
 }
@@ -21,16 +22,12 @@ export default function post (state = INITIAL_STATE, action) {
 			data: [action.payload.post, ...state.data],
 			isLoading: false
 		}
-	case Types.COMMENT:
+	case Types.ADD_COMMENT_SUCCESS:
 		return {
 			...state,
 			data: state.data.map(post => {
 				if (post.id === action.payload.postId) {
-					if (post.comments) {
-						post.comments = post.comments.concat(action.payload.comment)
-					} else {
-						post.comments = [action.payload.comment]
-					}
+					post.comments = action.payload.comments
 				}
 				return post
 			})
@@ -58,9 +55,13 @@ export const Creators = {
 		type: Types.ADD_REQUEST,
 		payload: { post }
 	}),
-	comment: (comment, postId) => ({
-		type: Types.COMMENT,
+	addCommentRequest: (comment, postId) => ({
+		type: Types.ADD_COMMENT_REQUEST,
 		payload: { comment, postId }
+	}),
+	addCommentSuccess: (comments, postId) => ({
+		type: Types.ADD_COMMENT_SUCCESS,
+		payload: { comments, postId }
 	}),
 	fetchRequest: () => ({
 		type: Types.FETCH_REQUEST

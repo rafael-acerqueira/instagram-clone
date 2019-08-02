@@ -16,6 +16,7 @@ export default () => {
 	useEffect(() => {
 		dispatch(PostActions.fetchRequest())
 	}, [])
+
 	return (
 		<Container>
 			<Header />
@@ -24,7 +25,7 @@ export default () => {
 			) : (
 				<FlatList
 					data={posts}
-					keyExtractor={item => `${item.id}`}
+					keyExtractor={item => item.id}
 					renderItem={({ item }) => <Post key={item.id} {...item} />}
 				/>
 			)}

@@ -34,16 +34,31 @@ export function * getPosts () {
 
 		for (let key in data) {
 			posts.push({
-				id: key,
-				...data[key]
+				...data[key],
+				id: key
 			})
 		}
-
 		yield put(PostActions.fetchSuccess(posts.reverse()))
 	} catch (error) {
 		Alert.alert(
 			'Tente Novamente!',
 			'Ocorreu algum problema ao tentar exibir os posts'
+		)
+	}
+}
+
+export function * addComment (action) {
+	try {
+		const { data } = yield call(api.get, `/posts/${action.payload.postId}.json`)
+		const comments = data.comments || []
+		comments.push(action.payload.comment)
+
+		yield call(api.patch, `/posts/${action.payload.postId}.json`, { comments })
+		yield put(PostActions.addCommentSuccess(comments, action.payload.postId))
+	} catch (error) {
+		Alert.alert(
+			'Tente Novamente!',
+			'Ocorreu algum problema ao tentar adicionar um comentário nessse post'
 		)
 	}
 }

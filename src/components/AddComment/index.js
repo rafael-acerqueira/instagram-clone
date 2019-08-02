@@ -13,7 +13,7 @@ export default props => {
 
 	const handleAddComment = () => {
 		dispatch(
-			PostActions.comment(
+			PostActions.addCommentRequest(
 				{
 					nickname,
 					comment
