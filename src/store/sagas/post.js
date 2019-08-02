@@ -26,3 +26,24 @@ export function * addPost (action) {
 		)
 	}
 }
+
+export function * getPost () {
+	try {
+		const posts = []
+		const { data } = yield call(api.get, '/posts.json')
+
+		for (let key in data) {
+			posts.push({
+				id: key,
+				...data[key]
+			})
+		}
+
+		yield put(PostActions.fetchSuccess(posts))
+	} catch (error) {
+		Alert.alert(
+			'Tente Novamente!',
+			'Ocorreu algum problema ao tentar exibir os posts'
+		)
+	}
+}
