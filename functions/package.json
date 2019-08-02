@@ -15,6 +15,9 @@
 		"firebase-functions": "^3.1.0",
 		"uuid-v4": "^0.1.0"
 	},
+	"engines": {
+		"node": "8"
+	},
 	"devDependencies": {
 		"firebase-functions-test": "^0.1.6"
 	},
