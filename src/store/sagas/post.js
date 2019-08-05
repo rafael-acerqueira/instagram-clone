@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects'
+import { call, put, select } from 'redux-saga/effects'
 import api from '../../services/api'
 import firebase from '../../services/firebase'
 
@@ -9,13 +9,15 @@ export function * addPost (action) {
 	const { post } = action.payload
 
 	try {
+		const token = yield select(state => state.user.token)
+
 		const { data } = yield call(firebase.post, '/uploadImage', {
 			image: post.image.base64
 		})
 
 		post.image = data.imageUrl
 
-		const { config } = yield call(api.post, '/posts.json', post)
+		const { config } = yield call(api.post, `/posts.json?auth=${token}`, post)
 		const postData = JSON.parse(config.data)
 
 		yield put(PostActions.addSuccess(postData))
@@ -53,11 +55,16 @@ export function * getPosts () {
 
 export function * addComment (action) {
 	try {
+		const token = yield select(state => state.user.token)
 		const { data } = yield call(api.get, `/posts/${action.payload.postId}.json`)
 		const comments = data.comments || []
 		comments.push(action.payload.comment)
 
-		yield call(api.patch, `/posts/${action.payload.postId}.json`, { comments })
+		yield call(
+			api.patch,
+			`/posts/${action.payload.postId}.json?auth=${token}`,
+			{ comments }
+		)
 		yield put(PostActions.addCommentSuccess(comments, action.payload.postId))
 	} catch (error) {
 		yield put(

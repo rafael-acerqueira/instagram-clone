@@ -39,8 +39,11 @@ export function * loginUser (action) {
 			returnSecureToken: true
 		})
 		if (data.localId) {
+			const token = data.idToken
 			const response = yield call(api.get, `/users/${data.localId}.json`)
-			yield put(UserActions.loginSuccess({ email, name: response.data.name }))
+			yield put(
+				UserActions.loginSuccess({ email, name: response.data.name, token })
+			)
 		}
 	} catch (error) {
 		yield put(

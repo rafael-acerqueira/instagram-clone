@@ -9,6 +9,7 @@ export const Types = {
 const INITIAL_STATE = {
 	name: '',
 	email: '',
+	token: '',
 	isLoading: false
 }
 
@@ -19,12 +20,13 @@ export default function user (state = INITIAL_STATE, action) {
 			...state,
 			name: action.payload.user.name,
 			email: action.payload.user.email,
+			token: action.payload.user.token,
 			isLoading: false
 		}
 	case Types.LOGIN_REQUEST:
 		return { ...state, isLoading: true }
 	case Types.LOGGED_OUT:
-		return { ...state, name: '', email: '' }
+		return { ...INITIAL_STATE }
 	case Types.REGISTER_REQUEST:
 		return { ...state, isLoading: true }
 	default:
