@@ -1,7 +1,8 @@
-import { call } from 'redux-saga/effects'
-import { Alert } from 'react-native'
+import { call, put } from 'redux-saga/effects'
 import auth, { API_KEY } from '../../services/auth'
 import api from '../../services/api'
+
+import { Creators as MessageActions } from '../ducks/message'
 
 export function * addUser (action) {
 	try {
@@ -16,9 +17,11 @@ export function * addUser (action) {
 			yield call(api.put, `/users/${data.localId}.json`, { name })
 		}
 	} catch (error) {
-		Alert.alert(
-			'Tente Novamente!',
-			'Ocorreu algum problema ao tentar registrar um usuário'
+		yield put(
+			MessageActions.set(
+				'Erro',
+				'Ocorreu algum problema ao tentar registrar um usuário'
+			)
 		)
 	}
 }

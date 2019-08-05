@@ -1,13 +1,18 @@
-import React from 'react'
-import { Provider } from 'react-redux'
+import React, { useEffect } from 'react'
+import { Alert } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 import Navigator from './Navigator'
-
-import store from './store'
+import { Creators as MessageActions } from './store/ducks/message'
 
 export default () => {
-	return (
-		<Provider store={store}>
-			<Navigator />
-		</Provider>
-	)
+	const { title, text } = useSelector(state => state.message)
+	const dispatch = useDispatch()
+	useEffect(() => {
+		if (!!text && !!title) {
+			Alert.alert(title, text)
+			dispatch(MessageActions.set('', ''))
+		}
+	}, [title, text])
+
+	return <Navigator />
 }

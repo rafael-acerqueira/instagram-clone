@@ -1,9 +1,9 @@
 import { call, put } from 'redux-saga/effects'
-import { Alert } from 'react-native'
 import api from '../../services/api'
 import firebase from '../../services/firebase'
 
 import { Creators as PostActions } from '../ducks/post'
+import { Creators as MessageActions } from '../ducks/message'
 
 export function * addPost (action) {
 	const { post } = action.payload
@@ -20,9 +20,11 @@ export function * addPost (action) {
 
 		yield put(PostActions.addSuccess(postData))
 	} catch (error) {
-		Alert.alert(
-			'Tente Novamente!',
-			'Ocorreu algum problema ao tentar adicionar um post'
+		yield put(
+			MessageActions.set(
+				'Erro',
+				'Ocorreu algum problema ao tentar adicionar um post'
+			)
 		)
 	}
 }
@@ -40,9 +42,11 @@ export function * getPosts () {
 		}
 		yield put(PostActions.fetchSuccess(posts.reverse()))
 	} catch (error) {
-		Alert.alert(
-			'Tente Novamente!',
-			'Ocorreu algum problema ao tentar exibir os posts'
+		yield put(
+			MessageActions.set(
+				'Erro',
+				'Ocorreu algum problema ao tentar exibir os posts'
+			)
 		)
 	}
 }
@@ -56,9 +60,11 @@ export function * addComment (action) {
 		yield call(api.patch, `/posts/${action.payload.postId}.json`, { comments })
 		yield put(PostActions.addCommentSuccess(comments, action.payload.postId))
 	} catch (error) {
-		Alert.alert(
-			'Tente Novamente!',
-			'Ocorreu algum problema ao tentar adicionar um comentário nessse post'
+		yield put(
+			MessageActions.set(
+				'Erro',
+				'Ocorreu algum problema ao tentar adicionar um comentário nessse post'
+			)
 		)
 	}
 }
