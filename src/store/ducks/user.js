@@ -25,6 +25,8 @@ export default function user (state = INITIAL_STATE, action) {
 		return { ...state, isLoading: true }
 	case Types.LOGGED_OUT:
 		return { ...state, name: '', email: '' }
+	case Types.REGISTER_REQUEST:
+		return { ...state, isLoading: true }
 	default:
 		return state
 	}
@@ -47,8 +49,5 @@ export const Creators = {
 	registerRequest: user => ({
 		type: Types.REGISTER_REQUEST,
 		payload: { user }
-	}),
-	registerSuccess: () => ({
-		type: Types.REGISTER_SUCCESS
 	})
 }

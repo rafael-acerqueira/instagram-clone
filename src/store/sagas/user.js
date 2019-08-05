@@ -15,7 +15,10 @@ export function * addUser (action) {
 		})
 
 		if (data.localId) {
-			yield call(api.put, `/users/${data.localId}.json`, { name })
+			yield call(api.put, `/users/${data.localId}.json`, {
+				name
+			})
+			yield put(UserActions.loginSuccess({ email, name }))
 		}
 	} catch (error) {
 		yield put(
