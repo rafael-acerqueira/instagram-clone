@@ -68,12 +68,14 @@ export default props => {
 				nickname: name,
 				email,
 				image,
-				comments: [
-					{
-						nickname: name,
-						comment
-					}
-				]
+				comments: comment
+					? [
+						{
+							nickname: name,
+							comment
+						}
+					  ]
+					: []
 			})
 		)
 	}
