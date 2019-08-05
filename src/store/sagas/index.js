@@ -1,11 +1,14 @@
 import { all, takeLatest } from 'redux-saga/effects'
-import { Types } from '../ducks/post'
+import { Types as PostTypes } from '../ducks/post'
+import { Types as UserTypes } from '../ducks/user'
 import { addPost, getPosts, addComment } from './post'
+import { addUser } from './user'
 
 export default function * rootSaga () {
 	yield all([
-		takeLatest(Types.ADD_REQUEST, addPost),
-		takeLatest(Types.FETCH_REQUEST, getPosts),
-		takeLatest(Types.ADD_COMMENT_REQUEST, addComment)
+		takeLatest(PostTypes.ADD_REQUEST, addPost),
+		takeLatest(PostTypes.FETCH_REQUEST, getPosts),
+		takeLatest(PostTypes.ADD_COMMENT_REQUEST, addComment),
+		takeLatest(UserTypes.ADD_REQUEST, addUser)
 	])
 }

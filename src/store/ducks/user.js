@@ -1,6 +1,8 @@
 export const Types = {
 	LOGGED_IN: 'users:LOGGED_IN',
-	LOGGED_OUT: 'users:LOGGED_OUT'
+	LOGGED_OUT: 'users:LOGGED_OUT',
+	ADD_REQUEST: 'users:ADD_REQUEST',
+	ADD_SUCCESS: 'users:ADD_SUCCESS'
 }
 
 const INITIAL_STATE = {
@@ -30,8 +32,14 @@ export const Creators = {
 			user
 		}
 	}),
-
 	logout: () => ({
 		type: Types.LOGGED_OUT
+	}),
+	addRequest: user => ({
+		type: Types.ADD_REQUEST,
+		payload: { user }
+	}),
+	addSuccess: () => ({
+		type: Types.ADD_SUCCESS
 	})
 }
