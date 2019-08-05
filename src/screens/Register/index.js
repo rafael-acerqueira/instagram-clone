@@ -34,7 +34,7 @@ export default () => {
 			/>
 			<Button
 				onPress={() =>
-					dispatch(UserActions.addRequest({ name, email, password }))
+					dispatch(UserActions.registerRequest({ name, email, password }))
 				}
 			>
 				<ButtonText>Salvar</ButtonText>

@@ -1,23 +1,28 @@
 export const Types = {
-	LOGGED_IN: 'users:LOGGED_IN',
 	LOGGED_OUT: 'users:LOGGED_OUT',
-	ADD_REQUEST: 'users:ADD_REQUEST',
-	ADD_SUCCESS: 'users:ADD_SUCCESS'
+	REGISTER_REQUEST: 'users:REGISTER_REQUEST',
+	REGISTER_SUCCESS: 'users:REGISTER_SUCCESS',
+	LOGIN_REQUEST: 'users:LOGIN_REQUEST',
+	LOGIN_SUCCESS: 'users:LOGIN_SUCCESS'
 }
 
 const INITIAL_STATE = {
 	name: '',
-	email: ''
+	email: '',
+	isLoading: false
 }
 
 export default function user (state = INITIAL_STATE, action) {
 	switch (action.type) {
-	case Types.LOGGED_IN:
+	case Types.LOGIN_SUCCESS:
 		return {
 			...state,
 			name: action.payload.user.name,
-			email: action.payload.user.email
+			email: action.payload.user.email,
+			isLoading: false
 		}
+	case Types.LOGIN_REQUEST:
+		return { ...state, isLoading: true }
 	case Types.LOGGED_OUT:
 		return { ...state, name: '', email: '' }
 	default:
@@ -26,20 +31,24 @@ export default function user (state = INITIAL_STATE, action) {
 }
 
 export const Creators = {
-	login: user => ({
-		type: Types.LOGGED_IN,
+	loginSuccess: user => ({
+		type: Types.LOGIN_SUCCESS,
 		payload: {
 			user
 		}
 	}),
+	loginRequest: user => ({
+		type: Types.LOGIN_REQUEST,
+		payload: { user }
+	}),
 	logout: () => ({
 		type: Types.LOGGED_OUT
 	}),
-	addRequest: user => ({
-		type: Types.ADD_REQUEST,
+	registerRequest: user => ({
+		type: Types.REGISTER_REQUEST,
 		payload: { user }
 	}),
-	addSuccess: () => ({
-		type: Types.ADD_SUCCESS
+	registerSuccess: () => ({
+		type: Types.REGISTER_SUCCESS
 	})
 }
